@@ -2,14 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  /* background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); */
-  background : #fff; /* white */
+  background: linear-gradient(135deg, #fff 0%, #cfdef3 100%);
 }
 
 .header {
   display: flex;
   align-items: flex-start;
-  background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+  background: linear-gradient(90deg, #fff 0%, #cfdef3 100%);
   padding: 0;
   position: relative;
   min-height: 140px;
