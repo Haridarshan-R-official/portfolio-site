@@ -10,23 +10,37 @@ body {
 header {
   background: #1e293b;
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-nav a, nav button {
+.profile-container {
+  position: absolute;
+  top: 20px;
+  right: -200px;
+  animation: slideIn 1.5s forwards ease-out;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+@keyframes slideIn {
+  to {
+    right: 20px;
+  }
+}
+
+nav a {
   margin: 0 10px;
   color: #38bdf8;
   text-decoration: none;
   font-weight: bold;
-}
-
-.profile-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 10px auto;
 }
 
 section {
@@ -38,11 +52,12 @@ section {
   border-radius: 10px;
   margin-bottom: 20px;
   padding: 15px;
-  transition: transform 0.3s;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(56, 189, 248, 0.3);
 }
 
 .project-card img {
@@ -57,6 +72,7 @@ section {
   background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -82,17 +98,4 @@ footer {
   text-align: center;
   padding: 15px;
   background: #1e293b;
-}
-
-body.light-mode {
-  background: #ffffff;
-  color: #000000;
-}
-
-body.light-mode header,
-body.light-mode footer,
-body.light-mode .project-card,
-body.light-mode .modal-content {
-  background: #f1f5f9;
-  color: #1e293b;
 }
