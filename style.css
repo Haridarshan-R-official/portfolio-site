@@ -96,16 +96,3 @@ body.light-mode .modal-content {
   background: #f1f5f9;
   color: #1e293b;
 }
-
-
-/* === script.js === */
-function openModal(id) {
-  document.getElementById(`modal-${id}`).style.display = 'flex';
-}
-function closeModal(id) {
-  document.getElementById(`modal-${id}`).style.display = 'none';
-}
-
-document.getElementById('theme-toggle').addEventListener('click', () => {
-  document.body.classList.toggle('light-mode');
-});
