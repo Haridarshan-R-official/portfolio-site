@@ -1,26 +1,34 @@
-function openModal(id) {
-  document.getElementById(`modal-${id}`).style.display = 'flex';
+let currentlyOpenModal = null;
+
+function openProjectModal(modalId) {
+  // Close any open modal first
+  if (currentlyOpenModal && currentlyOpenModal !== modalId) {
+    document.getElementById(currentlyOpenModal).style.display = 'none';
+    // Reset hover on previous project
+    const prevProjectId = currentlyOpenModal === 'modal1' ? 'project1' : 'project2';
+    document.getElementById(prevProjectId).classList.remove('hover');
+  }
+  // Open new modal
+  document.getElementById(modalId).style.display = 'flex';
+  // Add hover state to project
+  const projectId = modalId === 'modal1' ? 'project1' : 'project2';
+  document.getElementById(projectId).classList.add('hover');
+  currentlyOpenModal = modalId;
 }
 
-function closeModal(id) {
-  document.getElementById(`modal-${id}`).style.display = 'none';
+function closeProjectModal(modalId, projectId) {
+  document.getElementById(modalId).style.display = 'none';
+  document.getElementById(projectId).classList.remove('hover');
+  currentlyOpenModal = null;
 }
 
-function triggerFill(el, modalId) {
-  const bar = el.querySelector('.fill-strip');
-  bar.style.width = '100%';
-  setTimeout(() => {
-    openModal(modalId);
-  }, 1000);
-}
-
-const faders = document.querySelectorAll('.fade-section');
-const options = { threshold: 0.1 };
-const observer = new IntersectionObserver(function(entries, observer) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+// Close modal if user clicks outside modal-content
+window.onclick = function(event) {
+  if (currentlyOpenModal) {
+    const modal = document.getElementById(currentlyOpenModal);
+    if (event.target === modal) {
+      const projectId = currentlyOpenModal === 'modal1' ? 'project1' : 'project2';
+      closeProjectModal(currentlyOpenModal, projectId);
     }
-  });
-}, options);
-faders.forEach(fader => observer.observe(fader));
+  }
+};
