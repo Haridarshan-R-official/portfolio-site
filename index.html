@@ -15,7 +15,7 @@
     <div class="header-content">
       <h1>Haridarshan R</h1>
       <p>ECE @ IIT Dharwad | VLSI & Communication Enthusiast</p>
-      <nav>
+      <nav class="sticky-nav">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="resume.pdf" target="_blank">Resume</a>
@@ -25,28 +25,26 @@
   </header>
 
   <main class="main-body">
-    <section id="about">
+    <section id="about" class="fade-section">
       <h2>About Me</h2>
       <p>I’m a B.Tech student at IIT Dharwad with strong skills in digital hardware design, signal processing, and VLSI systems. Passionate about building real-world systems.</p>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="fade-section">
       <h2>Projects</h2>
 
-      <div class="project-card" onmouseover="triggerFill(this)" onclick="openModal('pam4')">
-        <div class="fill-bar"></div>
-        <img src="assets/pam4.jpg" alt="PAM-4 Project" />
+      <div class="project-bar" onmouseover="triggerFill(this, 'pam4')">
+        <div class="fill-strip"></div>
         <h3>PAM-4 | Digital Design</h3>
       </div>
 
-      <div class="project-card" onmouseover="triggerFill(this)" onclick="openModal('text')">
-        <div class="fill-bar"></div>
-        <img src="assets/text_transmission.jpg" alt="Text Transmission Project" />
+      <div class="project-bar" onmouseover="triggerFill(this, 'text')">
+        <div class="fill-strip"></div>
         <h3>Text Transmission System</h3>
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="fade-section">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:220020025@iitdh.ac.in">220020025@iitdh.ac.in</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/haridarshan-r-261160266" target="_blank">linkedin.com/in/haridarshan-r</a></p>
