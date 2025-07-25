@@ -1,39 +1,111 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  background: #0f172a;
+  color: #f1f5f9;
+  transition: background 0.3s, color 0.3s;
 }
 
 header {
-  background-color: #222;
-  color: #fff;
-  padding: 20px 10px;
+  background: #1e293b;
   text-align: center;
+  padding: 20px;
 }
 
-nav a {
+nav a, nav button {
   margin: 0 10px;
-  color: #00bcd4;
+  color: #38bdf8;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
 }
 
 section {
   padding: 20px;
-  margin: 10px;
 }
 
-.project {
-  border-left: 4px solid #00bcd4;
-  padding-left: 10px;
-  margin-bottom: 15px;
+.project-card {
+  background: #1e293b;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+.project-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  color: white;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 footer {
   text-align: center;
-  padding: 10px;
-  background: #222;
-  color: white;
+  padding: 15px;
+  background: #1e293b;
 }
+
+body.light-mode {
+  background: #ffffff;
+  color: #000000;
+}
+
+body.light-mode header,
+body.light-mode footer,
+body.light-mode .project-card,
+body.light-mode .modal-content {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+
+/* === script.js === */
+function openModal(id) {
+  document.getElementById(`modal-${id}`).style.display = 'flex';
+}
+function closeModal(id) {
+  document.getElementById(`modal-${id}`).style.display = 'none';
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+});
