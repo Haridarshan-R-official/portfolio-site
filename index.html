@@ -1,77 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Haridarshan R | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Portfolio Landing</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="profile-left-bg">
-      <img src="assets/profile.jpg" alt="Haridarshan" class="profile-img-left fade-mask" />
-    </div>
+  <header class="header">
+    <img src="profile.jpg" alt="Profile Image" class="profile-image">
     <div class="header-content">
       <h1>Haridarshan R</h1>
-      <p>ECE @ IIT Dharwad | VLSI & Communication Enthusiast</p>
-      <nav class="sticky-nav">
+      <nav>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
-        <a href="resume.pdf" target="_blank">Resume</a>
-        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
-
-  <main class="main-body">
-    <section id="about" class="fade-section">
+  <main class="body">
+    <section id="about">
       <h2>About Me</h2>
-      <p>I’m a B.Tech student at IIT Dharwad with strong skills in digital hardware design, signal processing, and VLSI systems. Passionate about building real-world systems.</p>
+      <p>This is the about section.</p>
     </section>
-
-    <section id="projects" class="fade-section">
+    <section id="projects">
       <h2>Projects</h2>
-
-      <div class="project-bar" onmouseover="triggerFill(this, 'pam4')">
-        <div class="fill-strip"></div>
-        <h3>PAM-4 | Digital Design</h3>
+      <div class="project-list">
+        <div class="project" id="project1" onclick="openProjectModal('modal1')">Project 1</div>
+        <div class="project" id="project2" onclick="openProjectModal('modal2')">Project 2</div>
       </div>
-
-      <div class="project-bar" onmouseover="triggerFill(this, 'text')">
-        <div class="fill-strip"></div>
-        <h3>Text Transmission System</h3>
-      </div>
-    </section>
-
-    <section id="contact" class="fade-section">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:220020025@iitdh.ac.in">220020025@iitdh.ac.in</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/haridarshan-r-261160266" target="_blank">linkedin.com/in/haridarshan-r</a></p>
     </section>
   </main>
-
-  <footer>
-    <p>© 2025 Haridarshan R</p>
-  </footer>
-
   <!-- Modals -->
-  <div id="modal-pam4" class="modal">
-    <div class="modal-content scrollable">
-      <span onclick="closeModal('pam4')" class="close">&times;</span>
-      <img src="assets/pam4.jpg" alt="PAM-4" class="modal-img" />
-      <h2>PAM-4 | Digital Design</h2>
-      <p>Utilizes PAM-4 for enhanced noise immunity and improved down-link speeds. Includes routing, packet structure, and CRC-based error detection.</p>
+  <div class="modal" id="modal1">
+    <div class="modal-content">
+      <span class="close" onclick="closeProjectModal('modal1', 'project1')">&times;</span>
+      <h3>Project 1 Details</h3>
+      <p>Details about Project 1.</p>
     </div>
   </div>
-
-  <div id="modal-text" class="modal">
-    <div class="modal-content scrollable">
-      <span onclick="closeModal('text')" class="close">&times;</span>
-      <img src="assets/text_transmission.jpg" alt="Text Transmission" class="modal-img" />
-      <h2>Text Transmission System</h2>
-      <p>Implemented compression with Huffman & Fano codes, error correction via block codes, and modulation using sinc pulses. Built using Python & MATLAB.</p>
+  <div class="modal" id="modal2">
+    <div class="modal-content">
+      <span class="close" onclick="closeProjectModal('modal2', 'project2')">&times;</span>
+      <h3>Project 2 Details</h3>
+      <p>Details about Project 2.</p>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
