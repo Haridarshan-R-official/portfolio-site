@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Haridarshan R | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -15,36 +16,30 @@
       <a href="#projects">Projects</a>
       <a href="resume.pdf" target="_blank">Resume</a>
       <a href="#contact">Contact</a>
+      <button id="theme-toggle">🌙</button>
     </nav>
   </header>
 
   <section id="about">
+    <img src="assets/profile.jpg" alt="Haridarshan" class="profile-img" />
     <h2>About Me</h2>
-    <p>B.Tech student at IIT Dharwad with a CPI of 9.29, focused on digital hardware, VLSI design, and signal processing. Strong foundation in communication systems and embedded design, with a hands-on approach to building practical systems.</p>
+    <p>I’m a B.Tech student at IIT Dharwad with strong skills in digital hardware design, signal processing, and VLSI systems. Passionate about building real-world systems.</p>
   </section>
 
   <section id="projects">
     <h2>Projects</h2>
 
-    <div class="project">
-      <h3>PAM-4 | Digital Design and Communication</h3>
-      <p>Designing a PAM-4 modulation system for automotive-grade high-speed communication. Features include CRC-based error correction and data routing.</p>
+    <div class="project-card">
+      <img src="assets/pam4.jpg" alt="PAM-4 Project" />
+      <h3>PAM-4 | Digital Design</h3>
+      <button onclick="openModal('pam4')">More Info</button>
     </div>
 
-    <div class="project">
+    <div class="project-card">
+      <img src="assets/text_transmission.jpg" alt="Text Transmission Project" />
       <h3>Text Transmission System</h3>
-      <p>Built a full communication system using Huffman coding, cyclic/linear error correction, and sinc pulse modulation with Python & MATLAB.</p>
+      <button onclick="openModal('text')">More Info</button>
     </div>
-
-  </section>
-
-  <section id="skills">
-    <h2>Technical Skills</h2>
-    <ul>
-      <li><strong>Languages:</strong> C, Python, Verilog, 8085 Assembly</li>
-      <li><strong>Tools:</strong> MATLAB, Proteus, LTspice, ngspice, VS Code</li>
-      <li><strong>Courses:</strong> VLSI Design, Microprocessors, Communication Systems</li>
-    </ul>
   </section>
 
   <section id="contact">
@@ -56,5 +51,24 @@
   <footer>
     <p>© 2025 Haridarshan R</p>
   </footer>
+
+  <!-- Modals -->
+  <div id="modal-pam4" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal('pam4')" class="close">&times;</span>
+      <img src="assets/pam4.jpg" alt="PAM-4" />
+      <h2>PAM-4 | Digital Design</h2>
+      <p>Utilizes PAM-4 for enhanced noise immunity and improved down-link speeds. Includes routing, packet structure, and CRC-based error detection.</p>
+    </div>
+  </div>
+
+  <div id="modal-text" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal('text')" class="close">&times;</span>
+      <img src="assets/text_transmission.jpg" alt="Text Transmission" />
+      <h2>Text Transmission System</h2>
+      <p>Implemented compression with Huffman & Fano codes, error correction via block codes, and modulation using sinc pulses. Built using Python & MATLAB.</p>
+    </div>
+  </div>
 </body>
 </html>
