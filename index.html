@@ -9,8 +9,8 @@
 </head>
 <body>
   <header>
-    <div class="profile-container">
-      <img src="assets/profile.jpg" alt="Haridarshan" class="profile-img animated-slide" />
+    <div class="profile-container fade-slide">
+      <img src="assets/profile.jpg" alt="Haridarshan" class="profile-img" />
     </div>
     <h1>Haridarshan R</h1>
     <p>ECE @ IIT Dharwad | VLSI & Communication Enthusiast</p>
@@ -30,16 +30,16 @@
   <section id="projects">
     <h2>Projects</h2>
 
-    <div class="project-card">
+    <div class="project-card" onmouseover="triggerFill(this)" onclick="openModal('pam4')">
+      <div class="fill-bar"></div>
       <img src="assets/pam4.jpg" alt="PAM-4 Project" />
       <h3>PAM-4 | Digital Design</h3>
-      <button onclick="openModal('pam4')">More Info</button>
     </div>
 
-    <div class="project-card">
+    <div class="project-card" onmouseover="triggerFill(this)" onclick="openModal('text')">
+      <div class="fill-bar"></div>
       <img src="assets/text_transmission.jpg" alt="Text Transmission Project" />
       <h3>Text Transmission System</h3>
-      <button onclick="openModal('text')">More Info</button>
     </div>
   </section>
 
