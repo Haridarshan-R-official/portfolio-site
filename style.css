@@ -29,15 +29,18 @@ header {
   margin-right: 20px;
   width: 120px;
   height: 120px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0,0,0,0));
+  overflow: hidden;
 }
 
+/* Profile image fades to the right with no animation */
 .profile-img-left {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  animation: fadeInRight 2s forwards;
+  /* Fade the image to the right using a mask gradient */
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  opacity: 1;
 }
 
 @keyframes fadeInRight {
