@@ -6,11 +6,15 @@
   <title>Haridarshan R | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: white;
       color: black;
+      overflow-x: hidden;
     }
     header {
       background: black;
@@ -25,11 +29,20 @@
       padding: 40px 20px;
       max-width: 900px;
       margin: auto;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.8s ease-out;
+    }
+    section.visible {
+      transform: translateY(0);
+      opacity: 1;
     }
     h2 {
       border-bottom: 2px solid #ccc;
       padding-bottom: 10px;
       margin-bottom: 20px;
+      color: #1a1a1a;
+      text-align: left;
     }
     .timeline {
       position: relative;
@@ -38,9 +51,6 @@
     }
     .timeline div {
       margin-bottom: 20px;
-      position: relative;
-      left: 100px;
-      text-align: right;
     }
     .project, .experience {
       background: #f2f2f2;
@@ -68,39 +78,33 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 1;
+      z-index: 1000;
       padding-top: 100px;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.9);
-      animation: burstIn 0.5s ease-out;
+      background-color: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.3s ease-in-out;
     }
-    @keyframes burstIn {
-      0% {
-        transform: scale(0.7);
-        opacity: 0;
-        box-shadow: 0 0 20px red;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-        box-shadow: 0 0 50px crimson;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .modal-content {
       background-color: #fff;
       margin: auto;
       padding: 20px;
-      border: 1px solid #888;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       width: 80%;
-      animation: popIn 0.3s ease-in-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: scaleUp 0.4s ease;
     }
-    @keyframes popIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @keyframes scaleUp {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
     .close {
       color: #aaa;
@@ -112,13 +116,6 @@
     .close:hover {
       color: black;
     }
-    .animated-gif {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      margin: 30px 0;
-      border-radius: 10px;
-    }
   </style>
 </head>
 <body>
@@ -127,10 +124,6 @@
     <p>Electrical Engineering Undergraduate @ IIT Dharwad</p>
     <p>Email: 220020025@iitdh.ac.in | Phone: +91 9789640535 | <a href="https://www.linkedin.com/in/haridarshan-r-261160266">LinkedIn</a></p>
   </header>
-
-  <section>
-    <img class="animated-gif" src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Scrolling Visual" />
-  </section>
 
   <section>
     <h2>About Me</h2>
@@ -148,20 +141,12 @@
 
   <section>
     <h2>Internship</h2>
-    <div class="experience" onclick="openModal('intern')">
-      <strong>Texas Instruments (May–July 2025)</strong><br>
-      <em>IR Drop Prediction at Early Design Cycle</em>
-    </div>
+    <div id="internship-section"></div>
   </section>
 
   <section>
     <h2>Projects</h2>
-    <div class="project" onclick="openModal('pam4')">
-      <strong>PAM-4 Communication Protocol (Aug 2024 – Present)</strong>
-    </div>
-    <div class="project" onclick="openModal('texttx')">
-      <strong>Text Transmission System (Apr – Jul 2024)</strong>
-    </div>
+    <div id="project-section"></div>
   </section>
 
   <section>
@@ -180,59 +165,80 @@
   </section>
 
   <footer>
-    Updated Last at July 2025
+    Updated last @ July 2025
   </footer>
 
-  <!-- Modals -->
-  <div id="pam4" class="modal">
-    <div class="modal-content" id="pam4-content">
-      <span class="close" onclick="closeModal('pam4')">&times;</span>
-    </div>
-  </div>
-  <div id="texttx" class="modal">
-    <div class="modal-content" id="texttx-content">
-      <span class="close" onclick="closeModal('texttx')">&times;</span>
-    </div>
-  </div>
-  <div id="intern" class="modal">
-    <div class="modal-content" id="intern-content">
-      <span class="close" onclick="closeModal('intern')">&times;</span>
+  <!-- Modal Container -->
+  <div id="modal" class="modal">
+    <div class="modal-content" id="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
     </div>
   </div>
 
   <script>
-    async function loadModalContent(id, url) {
-      const container = document.getElementById(id + '-content');
+    function createEntry(name, label, type) {
+      const id = `${type}_${name}`;
+      const display = document.createElement('div');
+      display.className = type === 'project' ? 'project' : 'experience';
+      display.textContent = label;
+      display.onclick = () => openModal(id);
+      document.getElementById(`${type}-section`).appendChild(display);
+
+      const modalContent = document.createElement('div');
+      modalContent.id = id;
+    }
+
+    async function openModal(fileId) {
+      const container = document.getElementById('modal-content');
+      container.innerHTML = '<span class="close" onclick="closeModal()">&times;</span>';
       try {
-        const response = await fetch(url);
-        const html = await response.text();
+        const res = await fetch(fileId + '.html');
+        const html = await res.text();
         container.innerHTML += html;
-      } catch (err) {
-        container.innerHTML += '<p style="color:red;">Failed to load modal content.</p>';
+      } catch (e) {
+        container.innerHTML += '<p style="color:red;">Failed to load content.</p>';
       }
+      document.getElementById('modal').style.display = 'block';
     }
 
-    function openModal(id) {
-      document.getElementById(id).style.display = "block";
-      if (!document.getElementById(id + '-content').dataset.loaded) {
-        const url = `${id}.html`;
-        loadModalContent(id, url);
-        document.getElementById(id + '-content').dataset.loaded = "true";
-      }
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
     }
 
     window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      });
+      const modal = document.getElementById('modal');
+      if (event.target == modal) modal.style.display = 'none';
     }
+
+    fetch('.')
+    .then(res => res.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const links = Array.from(doc.querySelectorAll('a'));
+      const htmlFiles = links
+        .map(a => a.getAttribute('href'))
+        .filter(href => href && href.endsWith('.html') && (href.startsWith('project_') || href.startsWith('internship_')));
+  
+      htmlFiles.forEach(file => {
+        const fileId = file.replace('.html', '');
+        const [type, ...rest] = fileId.split('_');
+        const name = rest.join('_');
+        const label = name.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        createEntry(name, label, type);
+      });
+    });
+
+    // Scroll animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('visible', entry.isIntersecting);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
   </script>
 </body>
 </html>
