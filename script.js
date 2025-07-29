@@ -35,7 +35,11 @@ window.onclick = function(event) {
 // Auto-discover entries
 const files = [
   'project_pam4',
-  'project_texttx',
+  'project_Fault-Detection',
+  'project_RISC-V',
+  'project_Image-Compression-Using-DCT',
+  'project_CNN-Accelerator',
+  'project_text-transmission',
   'internship_texas'
 ];
 files.forEach(file => {
