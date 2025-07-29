@@ -10,14 +10,17 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #f4f7f8;
-      color: #333;
+      background: white;
+      color: black;
     }
     header {
-      background: linear-gradient(135deg, #1a1a40, #2d2d6f);
+      background: black;
       color: white;
       padding: 60px 20px;
       text-align: center;
+    }
+    header a {
+      color: white;
     }
     header h1 {
       margin: 0;
@@ -33,40 +36,76 @@
       margin: auto;
     }
     h2 {
-      border-bottom: 2px solid #eee;
+      border-bottom: 2px solid #ccc;
       padding-bottom: 10px;
       margin-bottom: 20px;
-      color: #1a1a40;
     }
     .timeline {
-      border-left: 4px solid #1a1a40;
+      border-left: 4px solid black;
       padding-left: 20px;
     }
     .timeline div {
       margin-bottom: 20px;
     }
     .project, .experience {
-      background: white;
+      background: #f2f2f2;
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       margin-bottom: 20px;
+      cursor: pointer;
     }
-    footer {
-      background: #1a1a40;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    .skills, .courses {
+    .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-    .skills div, .courses div {
-      background: #e3e3f5;
+    .skills div {
+      background: #eee;
       padding: 10px 15px;
       border-radius: 6px;
+    }
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: black;
+    }
+    .animated-gif {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      margin: 30px 0;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -75,8 +114,12 @@
   <header>
     <h1>Haridarshan R</h1>
     <p>Electrical Engineering Undergraduate @ IIT Dharwad</p>
-    <p>Email: 220020025@iitdh.ac.in | Phone: +91 9789640535 | <a href="https://www.linkedin.com/in/haridarshan-r-261160266" style="color: #aad8ff;">LinkedIn</a></p>
+    <p>Email: 220020025@iitdh.ac.in | Phone: +91 9789640535 | <a href="https://www.linkedin.com/in/haridarshan-r-261160266">LinkedIn</a></p>
   </header>
+
+  <section>
+    <img class="animated-gif" src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Scrolling Visual" />
+  </section>
 
   <section>
     <h2>About Me</h2>
@@ -103,13 +146,11 @@
 
   <section>
     <h2>Projects</h2>
-    <div class="project">
+    <div class="project" onclick="openModal('pam4')">
       <strong>PAM-4 Communication Protocol (Aug 2024 – Present)</strong>
-      <p>Developed a high-speed communication interface using PAM-4 for enhanced bandwidth. Designed packet structure, implemented routing, and added CRC error correction.</p>
     </div>
-    <div class="project">
+    <div class="project" onclick="openModal('texttx')">
       <strong>Text Transmission System (Apr – Jul 2024)</strong>
-      <p>Built a digital communication model using Huffman/Fano compression, block codes, and sinc-pulse modulation. Full pipeline: Source Encoding → Modulation → Transmission → Decoding.</p>
     </div>
   </section>
 
@@ -128,32 +169,43 @@
     </div>
   </section>
 
-  <section>
-    <h2>Key Courses</h2>
-    <div class="courses">
-      <div>Electronic Devices</div>
-      <div>Analog Circuits</div>
-      <div>Network Theory</div>
-      <div>Digital Systems</div>
-      <div>VLSI Design</div>
-      <div>Microprocessors</div>
-      <div>Digital Signal Processing</div>
-      <div>Signals and Systems</div>
-      <div>Communication Systems</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Achievements</h2>
-    <ul>
-      <li>JEE Advanced Category Rank: 3686</li>
-      <li>Held leadership positions: School Pupil Leader, House Captain</li>
-    </ul>
-  </section>
-
   <footer>
     &copy; 2025 Haridarshan R | Designed with 💻 and 🚀
   </footer>
+
+  <!-- Modals -->
+  <div id="pam4" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('pam4')">&times;</span>
+      <h2>PAM-4 Communication Protocol</h2>
+      <p>Developed a high-speed communication interface using PAM-4 for enhanced bandwidth. Designed packet structure, implemented routing, and added CRC error correction.</p>
+    </div>
+  </div>
+
+  <div id="texttx" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('texttx')">&times;</span>
+      <h2>Text Transmission System</h2>
+      <p>Built a digital communication model using Huffman/Fano compression, block codes, and sinc-pulse modulation. Full pipeline: Source Encoding → Modulation → Transmission → Decoding.</p>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
