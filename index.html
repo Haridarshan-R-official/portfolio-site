@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,14 +21,6 @@
     header a {
       color: white;
     }
-    header h1 {
-      margin: 0;
-      font-size: 3em;
-    }
-    header p {
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
     section {
       padding: 40px 20px;
       max-width: 900px;
@@ -41,11 +32,15 @@
       margin-bottom: 20px;
     }
     .timeline {
+      position: relative;
       border-left: 4px solid black;
       padding-left: 20px;
     }
     .timeline div {
       margin-bottom: 20px;
+      position: relative;
+      left: 100px;
+      text-align: right;
     }
     .project, .experience {
       background: #f2f2f2;
@@ -70,7 +65,6 @@
       text-align: center;
       padding: 20px;
     }
-    /* Modal Styles */
     .modal {
       display: none;
       position: fixed;
@@ -81,7 +75,20 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0,0,0,0.9);
+      animation: burstIn 0.5s ease-out;
+    }
+    @keyframes burstIn {
+      0% {
+        transform: scale(0.7);
+        opacity: 0;
+        box-shadow: 0 0 20px red;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 50px crimson;
+      }
     }
     .modal-content {
       background-color: #fff;
@@ -89,6 +96,11 @@
       padding: 20px;
       border: 1px solid #888;
       width: 80%;
+      animation: popIn 0.3s ease-in-out;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     .close {
       color: #aaa;
@@ -109,7 +121,6 @@
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>Haridarshan R</h1>
@@ -137,10 +148,9 @@
 
   <section>
     <h2>Internship</h2>
-    <div class="experience">
+    <div class="experience" onclick="openModal('intern')">
       <strong>Texas Instruments (May–July 2025)</strong><br>
       <em>IR Drop Prediction at Early Design Cycle</em>
-      <p>Worked on modeling and predicting IR drop issues in chip design using simulations and scripting. Helped improve design-time decisions by predicting power integrity issues early in the design cycle.</p>
     </div>
   </section>
 
@@ -175,28 +185,46 @@
 
   <!-- Modals -->
   <div id="pam4" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" id="pam4-content">
       <span class="close" onclick="closeModal('pam4')">&times;</span>
-      <h2>PAM-4 Communication Protocol</h2>
-      <p>Developed a high-speed communication interface using PAM-4 for enhanced bandwidth. Designed packet structure, implemented routing, and added CRC error correction.</p>
     </div>
   </div>
-
   <div id="texttx" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" id="texttx-content">
       <span class="close" onclick="closeModal('texttx')">&times;</span>
-      <h2>Text Transmission System</h2>
-      <p>Built a digital communication model using Huffman/Fano compression, block codes, and sinc-pulse modulation. Full pipeline: Source Encoding → Modulation → Transmission → Decoding.</p>
+    </div>
+  </div>
+  <div id="intern" class="modal">
+    <div class="modal-content" id="intern-content">
+      <span class="close" onclick="closeModal('intern')">&times;</span>
     </div>
   </div>
 
   <script>
+    async function loadModalContent(id, url) {
+      const container = document.getElementById(id + '-content');
+      try {
+        const response = await fetch(url);
+        const html = await response.text();
+        container.innerHTML += html;
+      } catch (err) {
+        container.innerHTML += '<p style="color:red;">Failed to load modal content.</p>';
+      }
+    }
+
     function openModal(id) {
       document.getElementById(id).style.display = "block";
+      if (!document.getElementById(id + '-content').dataset.loaded) {
+        const url = `${id}.html`;
+        loadModalContent(id, url);
+        document.getElementById(id + '-content').dataset.loaded = "true";
+      }
     }
+
     function closeModal(id) {
       document.getElementById(id).style.display = "none";
     }
+
     window.onclick = function(event) {
       const modals = document.querySelectorAll('.modal');
       modals.forEach(modal => {
@@ -207,5 +235,4 @@
     }
   </script>
 </body>
-
 </html>
